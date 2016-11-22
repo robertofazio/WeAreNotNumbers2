@@ -18,7 +18,7 @@ Starting from the idea to tell the emotions expressed on some social networks, W
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/6.jpg)
 
 # Unity3D Linux Editor
-
+The project was developed by using Unity3D Linux Editor and basically I create a simple matrix of gameobjects which will be send later to the pyshical screen
 ```C#
 void Start () 
 	{
@@ -38,7 +38,55 @@ void Start ()
 		this.transform.localPosition = new Vector3(-3.61f,26.5f,0);
 	}
 ```
+Every time I touch each wood strip on the screen with the mouse left button with ScreenPointToRay I save the value of the rotation and I trigger to 45° -45°
+```C#
+ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if(Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
+		{
+			for(int i =0; i < patternResolution; i++)
+			{
+				for(int j=0; j < patternResolution; j++)
+				{
+					if(hit.collider.gameObject == grid[i,j].gameObject)
+					{
+						indexX = j;
+						indexY = i;
+					}
+				}
+			}
+			if(hit.collider.gameObject.transform.localRotation.eulerAngles.z > 180)
+			{
+				rot=45;
+				valueMax =0;
+			}
+			else
+			{
+				rot=-45;
+				valueMax = 1;
+			}
+			
+hit.collider.gameObject.transform.localRotation = Quaternion.Euler(new Vector3(0,0,(int)rot));
+iShield = ( ( patternResolution * indexY) + indexX) / 16;
+jServo = (((patternResolution * indexY) + indexX ) - (iShield * 16)) ;
+```
+Finally we are ready to send the value to Arduino by using the OSC protocol
+```C#
+OscSendReceiver.SingleServo(iShield,jServo,valueMax);
+```
+SingleServo is a public static funtion from OscSendReceiver.cs script. I send the message "/unity/single " and the 3 osc values oscM.Values.Add(iShield) , oscM.Values.Add(jServo) , oscM.Values.Add(MaxValue) which will be decoded by Arduino software.
 
+```C#
+	public static void SingleServo(int iShield, int jServo, int MaxValue)
+	{
+		string msg = "/unity/single ";
+		OscMessage oscM = Osc.StringToOscMessage(msg);
+		oscM.Values.Add(iShield);
+		oscM.Values.Add(jServo);
+		oscM.Values.Add(MaxValue);
+		handler.Send(oscM);
+	}
+
+```
 # Arduino
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/8.jpg)
 
