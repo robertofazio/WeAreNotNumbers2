@@ -1,12 +1,6 @@
 /* WE ARE NOT NUMBERS IF2016
    Working Copy Master
    Last Update 04.07.2016
-   OSC Received two separate message: first of 70 char, second of 30 char
-   some hack :
-   every osc message went with a backspace char
-   second mess arrive with 'a' char from Unity in order to solve problems about no-alphanumerical char
-
-
 */
 
 #include <Wire.h>

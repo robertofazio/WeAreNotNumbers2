@@ -46,29 +46,6 @@ public class OscSendReceiver : MonoBehaviour
 
 	}
 
-//	public void FromArduino(OscMessage oscMessage)
-//	{	
-//		address = oscMessage.Address;
-//
-//		if(address == "/ard/aaa")
-//		{
-//			print(oscMessage.Address + " : " + oscMessage.Values[0]);
-//		}
-//
-//	} 
-
-	// Send 100 pixels encoded to Arduino
-//	public static void PixelsPackageOSC(string EncodedPixels)
-//	{
-//		if (CreatePattern.message != null) 
-//		{
-//			string msg = "/unity/values " + EncodedPixels;
-//			OscMessage oscM = Osc.StringToOscMessage(msg);
-//			handler.Send(oscM);
-//			//print("osc msg  sended: " + msg);
-//
-//		}
-//	}
 
 	public static void SingleServo(int iShield, int jServo, int MaxValue)
 	{
@@ -86,93 +63,24 @@ public class OscSendReceiver : MonoBehaviour
 		handler.Send(oscM);
 		print ("OSC sent: ResetServo");
 	}
-//
-//	public static void AllServo()
-//	{
-//		OscMessage oscM = Osc.StringToOscMessage ("/unity/allOn ");
-//		handler.Send(oscM);
-//		print ("OSC sent: All ON Servo");
-//	}
 
-//	public static void HardcodeToArduino()
-//	{
-//		int rnd = UnityEngine.Random.Range (0, 13);
-//		string myMess = "/unity/hardcode " + rnd;
-//
-//		OscMessage oscM = Osc.StringToOscMessage (myMess);
-//
-//		handler.Send (oscM);
-//		print(oscM.Address + oscM.Values[0]);
-//
-//	}
 
 
 	void Update()
 	{
 		if (CreatePattern.message != null) 
 		{
-			// Test sender check frame
-//			if (Input.GetKeyDown (KeyCode.Alpha1)) 
-//			{
-//				string prima = "1111111111111111111111111111111111111111111111111111111111111111111111";
-//				string seconda = "111111111111111111111111111111";
-//				OscSendReceiver.PixelsPackageOSC (prima);
-//				OscSendReceiver.PixelsPackageOSC ("a" + seconda);
-//				print ("lenght: " + prima.Length + " e " + seconda.Length); 
-//
-//			}
+			
 
 			if (Input.GetKeyDown (KeyCode.R)) 
 			{
 				ResetServo ();
 			}
 
-		/*	
-		  if (Input.GetKeyDown (KeyCode.Alpha0)) 
-			{
-				string prima = "0000000000000000000000000000000000000000000000000000000000000000000000";
-				string seconda = "000000000000000000000000000000";
-			    OscSendReceiver.PixelsPackageOSC (prima);
-			    OscSendReceiver.PixelsPackageOSC ("a" + seconda);
-				print ("lenght: " + prima.Length + " e " + seconda.Length); 
-
-
-			}
-
-			if (Input.GetKeyDown (KeyCode.C)) 
-			{
-				string prima = "0000000000000000000000000000000000000000000000000000000000000000000000";
-				string seconda = "000000000000000000000000000000";
-
-				//char[] _prima = prima.ToCharArray ();
-				//char[] _seconda = seconda.ToCharArray ();
-
-				if (LoadEncode.data != null) 
-				{
-					//char[] send = _prima + _seconda;
-
-					//string msg = "/unity/values " + EncodedPixels;
-					//OscMessage oscM = Osc.StringToOscMessage(msg);
-
-				
-					//handler.Send(oscM);
-					//print("osc msg  sended: " + msg);
-
-				}
-
-			}
-				
-
-		*/
-
 		}
 			
 
 	}
-
-
-
-
 
 
 	public void ListenAllEvent(OscMessage oscMessage)
@@ -188,8 +96,6 @@ public class OscSendReceiver : MonoBehaviour
 	void OnApplicationQuit()
 	{
 		ResetServo ();
-		//WriteConsoleSend.WriteLogFile ("Quit Application WeAreNotNumbers");
-		//WriteConsoleSend.SendEmail ();
 
 		if(File.Exists("WeAreNotNumbers.log"))
 			File.Delete("WeAreNotNumbers.log");

@@ -49,24 +49,12 @@ public class CreatePattern : MonoBehaviour
 		this.transform.localRotation = Quaternion.Euler( new Vector3(0,0,-90));
 		this.transform.localPosition = new Vector3(-3.61f,26.5f,0);
 	}
-
-
-
-	// Update is called once per frame
+		
 	void Update () 
 	{
 		ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-
 		if(Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
 		{
-//			if(hit.collider.gameObject.transform.localRotation.eulerAngles.z > 180)
-//				rot=45;
-//			else
-//				rot=-45;
-//			hit.collider.gameObject.transform.localRotation = Quaternion.Euler(new Vector3(0,0,(int)rot));
-//			ComposeAndSend();
-
 			for(int i =0; i < patternResolution; i++)
 			{
 				for(int j=0; j < patternResolution; j++)
