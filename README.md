@@ -145,6 +145,10 @@ void updateSingleServo(int iShield, int jServo, int maxValues)
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/1.jpg)
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/2.jpg)
 
+Feel free to contact me to any info.
+studio@robertofazio.com
 
+Thanks to Enrico Viola for part of Arduino sketch and help me to find always the best solution! 
+Thanks to my IED students Michel Collina, Jacopo Rosano and Giuseppe Tano.
 
 
