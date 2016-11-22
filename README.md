@@ -89,8 +89,58 @@ SingleServo is a public static funtion from OscSendReceiver.cs script. I send th
 ```
 # Arduino
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/8.jpg)
+I used these main libraries in order to control servos and OSC packets: 
+```Arduino
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+#include <SPI.h>
+#include <Ethernet.h>
+#include <ArdOSC.h>
+```
+declaring the OSCServer, OSCClient and the PWM driver shield
+```Arduino
+Adafruit_PWMServoDriver pwm[NUM_PWM];
+OSCServer server;
+OSCClient client;
+```
 
+this is the callback to receive osc from Unity3d
+```Arduino
+server.addCallback("/unity/single", &UnitySingle);
+```
+when message incoming I get the 3 arguments of the OSC message
+```Arduino
+void UnitySingle(OSCMessage * _msg)
+{
+  int iShield = _msg->getArgInt32(0);
+  int jServo = _msg->getArgInt32(1);
+  int MaxValue = _msg->getArgInt32(2);
 
+  Serial.println("shield n");
+  Serial.println(iShield);
+  Serial.println("servo n");
+  Serial.println(jServo);
+  Serial.println("to max");
+  Serial.println(MaxValue);
+
+  updateSingleServo(iShield,jServo, MaxValue);
+ 
+}
+```
+Finally I'm ready to send to the physical pixels to any servo motors
+```Arduino
+void updateSingleServo(int iShield, int jServo, int maxValues)
+{
+  if(maxValues == 1)
+  {
+     pwm[iShield].setPWM(jServo,0,SERVOMAX);
+  }
+  else
+  {
+     pwm[iShield].setPWM(jServo,0,SERVOMIN);
+  } 
+}
+```
 # Mobile Android User Interface
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/1.jpg)
 ![alt tag](https://dl.dropboxusercontent.com/u/10907181/githubimages/wearenotnumbers/2.jpg)
