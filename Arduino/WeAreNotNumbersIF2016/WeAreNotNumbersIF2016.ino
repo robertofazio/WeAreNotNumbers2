@@ -22,7 +22,7 @@ Adafruit_PWMServoDriver pwm[NUM_PWM];
 OSCServer server;
 OSCClient client;
 
-// Mac Address della Ethernet Shield
+// Mac Address Ethernet Shield
 byte myMac[] = { 0x90, 0xA2, 0xDA, 0x0F, 0x07, 0xEE };
 byte myIp[]  = { 192, 168, 31, 141 };   // SET ARDUINO IP same in Unity3d config.XML
 int  serverPort  = 10000;               // Unity3d incoming port
